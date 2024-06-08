@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://tqlxam1nm76i"]
+
+[ext_resource type="Script" path="res://Scripts/ItemData.cs" id="1_4w8wg"]
+[ext_resource type="Texture2D" uid="uid://cufgdrd8oy630" path="res://Assets/Apple_Transparent_PNG_Clip_Art_Image.png" id="1_yhxse"]
+
+[resource]
+script = ExtResource("1_4w8wg")
+Name = "Apple"
+Description = "A tasty apple"
+Stackable = true
+Texture = ExtResource("1_yhxse")

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=6 format=3 uid="uid://dynoopnvx4v0j"]
+
+[ext_resource type="Script" path="res://Scripts/InventoryData.cs" id="1_1lwxe"]
+[ext_resource type="Resource" uid="uid://tqlxam1nm76i" path="res://Items/apple.tres" id="1_ftcaq"]
+[ext_resource type="Script" path="res://Scripts/SlotData.cs" id="2_iiopr"]
+
+[sub_resource type="Resource" id="Resource_www5i"]
+script = ExtResource("2_iiopr")
+Item = ExtResource("1_ftcaq")
+Quantity = 3
+
+[sub_resource type="Resource" id="Resource_t5ws5"]
+script = ExtResource("2_iiopr")
+Item = ExtResource("1_ftcaq")
+Quantity = 5
+
+[resource]
+script = ExtResource("1_1lwxe")
+SlotDatas = Array[Object]([null, null, SubResource("Resource_www5i"), null, null, SubResource("Resource_t5ws5"), null, null, null, null])

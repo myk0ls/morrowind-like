@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://cx5wo6j7me63s"]
+
+[ext_resource type="PackedScene" uid="uid://dad3f0abuis23" path="res://Scenes/player.tscn" id="1_184v2"]
+[ext_resource type="Script" path="res://Scripts/World.cs" id="1_nso2f"]
+[ext_resource type="Resource" uid="uid://dynoopnvx4v0j" path="res://Items/test_inv.tres" id="2_338v7"]
+[ext_resource type="PackedScene" uid="uid://c48t2lj1ljsrb" path="res://Scenes/inventory.tscn" id="2_atqfo"]
+[ext_resource type="Script" path="res://Scripts/InventoryInterface.cs" id="4_bgtwu"]
+[ext_resource type="PackedScene" uid="uid://dt746tuqsm8re" path="res://Scenes/slot.tscn" id="6_ratyd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gqoa0"]
+
+[sub_resource type="Sky" id="Sky_f23ie"]
+sky_material = SubResource("ProceduralSkyMaterial_gqoa0")
+
+[sub_resource type="Environment" id="Environment_l7smo"]
+background_mode = 2
+sky = SubResource("Sky_f23ie")
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_nso2f")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.443956, -0.100988, -0.197017)
+use_collision = true
+size = Vector3(20.5275, 0.131348, 22.3536)
+
+[node name="Player" parent="." instance=ExtResource("1_184v2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55459, 0)
+inventoryData = ExtResource("2_338v7")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l7smo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.9242, 0.381909, 0, -0.381909, 0.9242, 0, 4.1642, 0)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "KAZKA
+"
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_bgtwu")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("2_atqfo")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("6_ratyd")]
+visible = false
+modulate = Color(1, 1, 1, 0.498039)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
