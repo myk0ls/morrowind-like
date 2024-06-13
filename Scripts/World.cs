@@ -18,12 +18,39 @@ public partial class World : Node3D
         InventoryInterface.SetPlayerInventoryData(player.inventoryData);
 
         customSignals.ToggleInventory += ToggleInventoryInterface;
+
+        foreach (Node node in GetTree().GetNodesInGroup("external_inventory"))
+        {
+            Chest container = node as Chest;
+            container.ToggleInventory += ToggleInventoryInterface;
+        }
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
+
+    public void ToggleInventoryInterface(Chest chest)
+    {
+        InventoryInterface.Visible = !InventoryInterface.Visible;
+
+        if (InventoryInterface.Visible)
+        {
+            Input.MouseMode = Input.MouseModeEnum.Confined;
+        }
+        else
+            Input.MouseMode = Input.MouseModeEnum.Captured;
+
+        if (chest != null && InventoryInterface.Visible == true)
+        {
+            InventoryInterface.SetExternalInventory(chest);
+        }
+        else
+        {
+            InventoryInterface.ClearExternalInventory();
+        }
+    }
 
     public void ToggleInventoryInterface()
     {
@@ -34,6 +61,9 @@ public partial class World : Node3D
             Input.MouseMode = Input.MouseModeEnum.Confined;
         }
         else
+        {
             Input.MouseMode = Input.MouseModeEnum.Captured;
+            InventoryInterface.ClearExternalInventory();
+        }
     }
 }

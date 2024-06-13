@@ -83,4 +83,29 @@ public partial class InventoryData : Resource
         else
             return null;
     }
+
+    public bool PickUpSlotData(SlotData slotData)
+    {
+        for (int i = 0; i < SlotDatas.Length; i++)
+        {
+            if (SlotDatas[i] != null && SlotDatas[i].CanFullyMergeWith(slotData) == true)
+            {
+                SlotDatas[i].FullyMergeWith(slotData);
+                EmitSignal(nameof(InventoryUpdated), this);
+                return true;
+            }
+        }
+
+        for (int i = 0; i < SlotDatas.Length; i++)
+        {
+            if (SlotDatas[i] == null)
+            {
+                SlotDatas[i] = slotData;
+                EmitSignal(nameof(InventoryUpdated), this);
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

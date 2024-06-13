@@ -5,13 +5,16 @@ using System.Text.RegularExpressions;
 public partial class InventoryInterface : Control
 {
 	Inventory PlayerInventory;
+	Inventory ExternalInvetory;
 	SlotData grabbedSlotData;
 	Slot grabbedSlot;
+	Chest chestOwner;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		PlayerInventory = GetNode<Inventory>("PlayerInventory");
-		grabbedSlot = GetNode<Slot>("GrabbedSlot");
+		ExternalInvetory = GetNode<Inventory>("ExternalInventory");
+        grabbedSlot = GetNode<Slot>("GrabbedSlot");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,5 +65,37 @@ public partial class InventoryInterface : Control
 		}
 		else
 			grabbedSlot.Hide();
+	}
+
+	public void SetExternalInventory(Chest chest)
+	{
+		//GD.Print(chest);
+		chestOwner = chest;
+		InventoryData inventoryData = chest.inventoryData;
+
+        inventoryData.InventoryInteract += OnInventoryInteract;
+        ExternalInvetory.SetInventoryData(inventoryData);
+
+		ExternalInvetory.Show();
+    }
+
+    public void ClearExternalInventory()
+    {
+        //GD.Print(chest);
+		if (chestOwner != null)
+		{
+			InventoryData inventoryData = chestOwner.inventoryData;
+
+			inventoryData.InventoryInteract -= OnInventoryInteract;
+			ExternalInvetory.ClearInventoryData(inventoryData);
+
+			ExternalInvetory.Hide();
+			chestOwner = null;
+		}
+    }
+
+	public void _on_gui_input(InputEvent @event)
+	{
+
 	}
 }

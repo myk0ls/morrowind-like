@@ -9,6 +9,8 @@ public partial class Player : CharacterBody3D
 
 	CustomSignals customSignals;
 
+	RayCast3D InteractRay;
+
 	[Export] public InventoryData inventoryData;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -18,6 +20,7 @@ public partial class Player : CharacterBody3D
     {
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		customSignals = GetNode<CustomSignals>("/root/CustomSignals");
+		InteractRay = GetNode<RayCast3D>("Camera3D/InteractRay");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -83,5 +86,16 @@ public partial class Player : CharacterBody3D
 		{
 			customSignals.EmitSignal(nameof(customSignals.ToggleInventory));
 		}
+
+		if (Input.IsActionJustPressed("interact"))
+		{
+			Interact();
+		}
     }
+
+	public void Interact()
+	{
+		if (InteractRay.IsColliding())
+			InteractRay.GetCollider().Call("PlayerInteract");
+	}
 }

@@ -28,6 +28,11 @@ public partial class Inventory : PanelContainer
 		PopulateItemGrid(data);
 	}
 
+	public void ClearInventoryData(InventoryData data)
+	{
+        data.InventoryUpdated -= PopulateItemGrid;
+    }
+
 
     public void PopulateItemGrid(InventoryData data)
 	{

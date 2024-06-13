@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cx5wo6j7me63s"]
+[gd_scene load_steps=20 format=3 uid="uid://cx5wo6j7me63s"]
 
 [ext_resource type="PackedScene" uid="uid://dad3f0abuis23" path="res://Scenes/player.tscn" id="1_184v2"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_nso2f"]
@@ -6,6 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://c48t2lj1ljsrb" path="res://Scenes/inventory.tscn" id="2_atqfo"]
 [ext_resource type="Script" path="res://Scripts/InventoryInterface.cs" id="4_bgtwu"]
 [ext_resource type="PackedScene" uid="uid://dt746tuqsm8re" path="res://Scenes/slot.tscn" id="6_ratyd"]
+[ext_resource type="PackedScene" uid="uid://c20vhceacguq5" path="res://Scenes/chest.tscn" id="7_h4ao6"]
+[ext_resource type="Resource" uid="uid://tqlxam1nm76i" path="res://Items/apple.tres" id="8_cyhpg"]
+[ext_resource type="Script" path="res://Scripts/SlotData.cs" id="9_l1q7o"]
+[ext_resource type="Script" path="res://Scripts/InventoryData.cs" id="10_y5hbg"]
+[ext_resource type="PackedScene" uid="uid://647bxsp6a7p6" path="res://Scenes/pickup.tscn" id="11_brxfy"]
+[ext_resource type="PackedScene" uid="uid://senlou8cxfo5" path="res://Models/HealthPotion.blend" id="12_5s6b3"]
+[ext_resource type="PackedScene" uid="uid://cp1m56xporun2" path="res://Models/StaminaPotion.blend" id="13_670je"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gqoa0"]
 
@@ -15,6 +22,20 @@ sky_material = SubResource("ProceduralSkyMaterial_gqoa0")
 [sub_resource type="Environment" id="Environment_l7smo"]
 background_mode = 2
 sky = SubResource("Sky_f23ie")
+
+[sub_resource type="Resource" id="Resource_78tc8"]
+script = ExtResource("9_l1q7o")
+Item = ExtResource("8_cyhpg")
+Quantity = 3
+
+[sub_resource type="Resource" id="Resource_g0i1j"]
+script = ExtResource("10_y5hbg")
+SlotDatas = Array[Object]([null, SubResource("Resource_78tc8"), null, null, null])
+
+[sub_resource type="Resource" id="Resource_0ufii"]
+script = ExtResource("9_l1q7o")
+Item = ExtResource("8_cyhpg")
+Quantity = 1
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_nso2f")
@@ -70,8 +91,34 @@ offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
 
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("2_atqfo")]
+visible = false
+layout_mode = 0
+offset_left = 681.0
+offset_top = 21.0
+offset_right = 721.0
+offset_bottom = 61.0
+
 [node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("6_ratyd")]
 visible = false
 modulate = Color(1, 1, 1, 0.498039)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Chest" parent="." instance=ExtResource("7_h4ao6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.186719, -5.17357)
+inventoryData = SubResource("Resource_g0i1j")
+
+[node name="Pickup" parent="." instance=ExtResource("11_brxfy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14363, -5.1396)
+slotData = SubResource("Resource_0ufii")
+
+[node name="HealthPotion" parent="." instance=ExtResource("12_5s6b3")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 3.19253, -0.000764251, -3.82036)
+
+[node name="StaminaPotion" parent="." instance=ExtResource("13_670je")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 3.6382, 0.00112414, -3.80301)
+
+[connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
