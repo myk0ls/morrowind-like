@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cp1m56xporun2"
-path="res://.godot/imported/StaminaPotion.blend-f5d5e5e07384a1af546c2a74312e3a68.scn"
+uid="uid://dgt80ipympmok"
+path="res://.godot/imported/IronHelmet.blend-f1e2cf2471a4b7c0a73bc9d7661547f0.scn"
 
 [deps]
 
-source_file="res://Models/StaminaPotion.blend"
-dest_files=["res://.godot/imported/StaminaPotion.blend-f5d5e5e07384a1af546c2a74312e3a68.scn"]
+source_file="res://Models/IronHelmet.blend"
+dest_files=["res://.godot/imported/IronHelmet.blend-f1e2cf2471a4b7c0a73bc9d7661547f0.scn"]
 
 [params]
 

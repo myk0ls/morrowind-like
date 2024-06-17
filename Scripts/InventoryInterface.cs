@@ -4,8 +4,12 @@ using System.Text.RegularExpressions;
 
 public partial class InventoryInterface : Control
 {
+	[Signal]
+	public delegate void DropSlotDataEventHandler(SlotData slotData);
+
 	Inventory PlayerInventory;
-	Inventory ExternalInvetory;
+    Inventory EquipInventory;
+    Inventory ExternalInvetory;
 	SlotData grabbedSlotData;
 	Slot grabbedSlot;
 	Chest chestOwner;
@@ -14,6 +18,7 @@ public partial class InventoryInterface : Control
 	{
 		PlayerInventory = GetNode<Inventory>("PlayerInventory");
 		ExternalInvetory = GetNode<Inventory>("ExternalInventory");
+        EquipInventory = GetNode<Inventory>("EquipInventory");
         grabbedSlot = GetNode<Slot>("GrabbedSlot");
 	}
 
@@ -32,7 +37,13 @@ public partial class InventoryInterface : Control
 		PlayerInventory.SetInventoryData(data);
 	}
 
-	public void OnInventoryInteract(InventoryData inv, int index, int button)
+    public void SetEquipInventoryData(InventoryData data)
+    {
+        data.InventoryInteract += OnInventoryInteract;
+        EquipInventory.SetInventoryData(data);
+    }
+
+    public void OnInventoryInteract(InventoryData inv, int index, int button)
 	{
 		//GD.Print(inv + " " + index + " " + button);
 		if (grabbedSlotData is null && button is 1)
@@ -45,7 +56,7 @@ public partial class InventoryInterface : Control
         }
         else if (grabbedSlotData is null && button is 2)
         {
-			return;
+			inv.UseSlotData(index);
         }
         else if (grabbedSlotData is not null && button is 2)
         {
@@ -96,6 +107,43 @@ public partial class InventoryInterface : Control
 
 	public void _on_gui_input(InputEvent @event)
 	{
+		if (@event is InputEventMouseButton)
+		{
+			InputEventMouseButton evento = @event as InputEventMouseButton;
 
+            if (grabbedSlot != null && evento.IsPressed())
+			{
+				switch((int)evento.ButtonIndex)
+				{
+					// left clikc
+                    case 1:
+						EmitSignal(nameof(DropSlotData), grabbedSlotData);
+						grabbedSlotData = null;
+
+						UpdateGrabbedSlot();
+                    break;
+
+					// right lcick
+                    case 2:
+						EmitSignal(nameof(DropSlotData), grabbedSlotData.CreateSingleSlotData());
+                        if (grabbedSlotData.Quantity < 1)
+						{
+							grabbedSlotData = null;
+						}
+                        UpdateGrabbedSlot();
+						break;
+                }
+			}
+		}
+	}
+
+	public void _on_visibility_changed()
+	{
+		if (grabbedSlotData != null && !Visible) 
+		{
+            EmitSignal(nameof(DropSlotData), grabbedSlotData);
+            grabbedSlotData = null;
+            UpdateGrabbedSlot();
+        }
 	}
 }

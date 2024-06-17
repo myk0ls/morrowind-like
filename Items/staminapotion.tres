@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=4 format=3 uid="uid://blw7dbemrsioj"]
+
+[ext_resource type="Script" path="res://Scripts/ItemDataConsumable.cs" id="1_amlbd"]
+[ext_resource type="PackedScene" uid="uid://cp1m56xporun2" path="res://Models/StaminaPotion.blend" id="1_b2ehm"]
+[ext_resource type="Texture2D" uid="uid://eqodvn17lwfr" path="res://Assets/staminapotion.png" id="2_aii3r"]
+
+[resource]
+script = ExtResource("1_amlbd")
+HealValue = 0
+StaminaValue = 20
+Name = "Stamina Potion"
+Description = "Restores Fatigue"
+Stackable = true
+Texture = ExtResource("2_aii3r")
+Model = ExtResource("1_b2ehm")

@@ -5,7 +5,7 @@ public partial class World : Node3D
 {
 	Player player;
     InventoryInterface InventoryInterface;
-
+    PackedScene pickup;
     CustomSignals customSignals;
 
     // Called when the node enters the scene tree for the first time.
@@ -14,8 +14,10 @@ public partial class World : Node3D
 		player = GetNode<Player>("/root/World/Player");
         InventoryInterface = GetNode<InventoryInterface>("/root/World/UI/InventoryInterface");
         customSignals = GetNode<CustomSignals>("/root/CustomSignals");
+        pickup = GD.Load<PackedScene>("res://Scenes/pickup.tscn");
 
         InventoryInterface.SetPlayerInventoryData(player.inventoryData);
+        InventoryInterface.SetEquipInventoryData(player.EquipInventoryData);
 
         customSignals.ToggleInventory += ToggleInventoryInterface;
 
@@ -65,5 +67,13 @@ public partial class World : Node3D
             Input.MouseMode = Input.MouseModeEnum.Captured;
             InventoryInterface.ClearExternalInventory();
         }
+    }
+
+    public void _on_inventory_interface_drop_slot_data(SlotData slotData)
+    {
+        Pickup pick_up = pickup.Instantiate() as Pickup;
+        pick_up.slotData = slotData;
+        pick_up.Position = player.GetDropPosition();
+        AddChild(pick_up);
     }
 }

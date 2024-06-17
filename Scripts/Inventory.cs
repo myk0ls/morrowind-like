@@ -26,11 +26,13 @@ public partial class Inventory : PanelContainer
 	{
 		data.InventoryUpdated += PopulateItemGrid;
 		PopulateItemGrid(data);
-	}
+
+    }
 
 	public void ClearInventoryData(InventoryData data)
 	{
         data.InventoryUpdated -= PopulateItemGrid;
+
     }
 
 
@@ -56,4 +58,20 @@ public partial class Inventory : PanelContainer
 			}
 		}
 	}
+
+    public void CalculateDefence(InventoryData data)
+    {
+		if (data.SlotDatas.Length > 0)
+		{
+			int sum = 0;
+			PlayerStats playerStat = GetNode<PlayerStats>("/root/PlayerStats");
+			foreach (SlotData slotData in data.SlotDatas)
+			{
+				var item = slotData.Item as ItemDataEquip;
+				sum += item.Defence;
+			}
+			playerStat.Defence = sum;
+			GD.Print("Current defence: " + playerStat.Defence);
+		}
+    }
 }

@@ -12,6 +12,8 @@ public partial class ItemData : Resource
 
     [Export] public Texture Texture { get; set; }
 
+    [Export] public PackedScene Model { get; set; }
+
     public ItemData() : this("", "", false, null) { }
 
     public ItemData(string Name, string Description, bool Stackable, Texture texture)
@@ -22,5 +24,6 @@ public partial class ItemData : Resource
         this.Texture = texture;
     }
 
+    public virtual void Use(Node target) { }
 }
 

@@ -1,19 +1,26 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=6 format=3 uid="uid://dynoopnvx4v0j"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=9 format=3 uid="uid://dynoopnvx4v0j"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryData.cs" id="1_1lwxe"]
-[ext_resource type="Resource" uid="uid://tqlxam1nm76i" path="res://Items/apple.tres" id="1_ftcaq"]
+[ext_resource type="Resource" uid="uid://dl8v4snnc0v6p" path="res://Items/healthpotion.tres" id="1_ma8lm"]
 [ext_resource type="Script" path="res://Scripts/SlotData.cs" id="2_iiopr"]
+[ext_resource type="Resource" uid="uid://elf5qjm52i1o" path="res://Items/ironhelm.tres" id="3_qtige"]
+[ext_resource type="Resource" uid="uid://blw7dbemrsioj" path="res://Items/staminapotion.tres" id="5_di88o"]
 
-[sub_resource type="Resource" id="Resource_www5i"]
+[sub_resource type="Resource" id="Resource_iise4"]
 script = ExtResource("2_iiopr")
-Item = ExtResource("1_ftcaq")
-Quantity = 3
+Item = ExtResource("1_ma8lm")
+Quantity = 4
 
-[sub_resource type="Resource" id="Resource_t5ws5"]
+[sub_resource type="Resource" id="Resource_ju25q"]
 script = ExtResource("2_iiopr")
-Item = ExtResource("1_ftcaq")
-Quantity = 5
+Item = ExtResource("3_qtige")
+Quantity = 0
+
+[sub_resource type="Resource" id="Resource_bajpc"]
+script = ExtResource("2_iiopr")
+Item = ExtResource("5_di88o")
+Quantity = 6
 
 [resource]
 script = ExtResource("1_1lwxe")
-SlotDatas = Array[Object]([null, null, SubResource("Resource_www5i"), null, null, SubResource("Resource_t5ws5"), null, null, null, null])
+SlotDatas = Array[Object]([SubResource("Resource_iise4"), SubResource("Resource_ju25q"), SubResource("Resource_bajpc"), null, null, null, null, null])

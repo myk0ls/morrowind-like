@@ -27,7 +27,7 @@ public partial class Slot : PanelContainer
 	{
 		var itemData = slotData.Item;
 		TextureSlot.Texture = (Texture2D)itemData.Texture;
-		TooltipText = String.Format("%s\n%s", itemData.Name, itemData.Description);
+		TooltipText = String.Format("{0}\n{1}", itemData.Name, itemData.Description);
 
 		if (slotData.Quantity > 1)
 		{

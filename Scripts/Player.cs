@@ -10,18 +10,24 @@ public partial class Player : CharacterBody3D
 	CustomSignals customSignals;
 
 	RayCast3D InteractRay;
+	Camera3D camera;
+	PlayerStats playerStats;
 
-	[Export] public InventoryData inventoryData;
+    [Export] public InventoryData inventoryData;
+    [Export] public InventoryData EquipInventoryData;
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+    // Get the gravity from the project settings to be synced with RigidBody nodes.
+    public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
     public override void _Ready()
     {
-		Input.MouseMode = Input.MouseModeEnum.Captured;
+        camera = GetNode<Camera3D>("Camera3D");
+        Input.MouseMode = Input.MouseModeEnum.Captured;
 		customSignals = GetNode<CustomSignals>("/root/CustomSignals");
 		InteractRay = GetNode<RayCast3D>("Camera3D/InteractRay");
-    }
+		playerStats = GetNode<PlayerStats>("/root/PlayerStats");
+		playerStats.Instance.player = this;
+	}
 
     public override void _PhysicsProcess(double delta)
 	{
@@ -60,7 +66,6 @@ public partial class Player : CharacterBody3D
         {
             InputEventMouseMotion motion = @event as InputEventMouseMotion;
             Rotation = new Vector3(Rotation.X, Rotation.Y - motion.Relative.X / 1000 * Sensitivity, Rotation.Z);
-            Camera3D camera = GetNode<Camera3D>("Camera3D");
             camera.Rotation = new Vector3(Mathf.Clamp(camera.Rotation.X - motion.Relative.Y / 1000 * Sensitivity, -2, 2), camera.Rotation.Y, camera.Rotation.Z);
         }
 
@@ -97,5 +102,11 @@ public partial class Player : CharacterBody3D
 	{
 		if (InteractRay.IsColliding())
 			InteractRay.GetCollider().Call("PlayerInteract");
+	}
+
+	public Vector3 GetDropPosition()
+	{
+		var direction = -camera.GlobalTransform.Basis.Z;
+		return camera.GlobalPosition + direction;
 	}
 }

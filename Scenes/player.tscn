@@ -1,10 +1,102 @@
-[gd_scene load_steps=4 format=3 uid="uid://dad3f0abuis23"]
+[gd_scene load_steps=10 format=3 uid="uid://dad3f0abuis23"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_gfhmw"]
+[ext_resource type="Script" path="res://Scenes/Weapon.cs" id="2_eqfwn"]
+[ext_resource type="PackedScene" uid="uid://45endebsn6me" path="res://Models/aXE.blend" id="2_x2kou"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_50mmn"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_52rgt"]
+
+[sub_resource type="Animation" id="Animation_gwhpt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("aXE:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.952306, -0.627223, -1.03203)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("aXE:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.12574, -0.270526)]
+}
+
+[sub_resource type="Animation" id="Animation_y1p3a"]
+resource_name = "attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("aXE:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.917948, -0.761495, -1.10406), Vector3(0.952306, -0.627223, -1.03203), Vector3(0.973294, -0.56265, -0.988028), Vector3(0.862432, -0.601262, -1.22045), Vector3(0.70676, -0.701542, -1.54683), Vector3(0.765906, -0.588342, -1.42283), Vector3(0.837354, -0.692179, -1.27303), Vector3(0.918, -0.761, -1.104)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("aXE:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.12574, 0), Vector3(0, -1.12574, -0.270526), Vector3(0, -1.12574, 0.270526), Vector3(0, -1.12574, 0.675442), Vector3(0, -1.12574, 0.404916), Vector3(0, -1.12574, 0.178024), Vector3(0, -1.12574, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lugur"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("aXE:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.917948, -0.761495, -1.10406)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("aXE:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.12574, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5gm5p"]
+_data = {
+"RESET": SubResource("Animation_gwhpt"),
+"attack": SubResource("Animation_y1p3a"),
+"idle": SubResource("Animation_lugur")
+}
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -22,5 +114,18 @@ fov = 89.4
 
 [node name="InteractRay" type="RayCast3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0369065, 0)
+visible = false
 target_position = Vector3(0, 0, -2.5)
 collision_mask = 4
+
+[node name="Weapon" type="Node3D" parent="Camera3D"]
+script = ExtResource("2_eqfwn")
+
+[node name="aXE" parent="Camera3D/Weapon" instance=ExtResource("2_x2kou")]
+transform = Transform3D(0.207705, 0.0576018, -0.451902, -0.133799, 0.482465, 0, 0.435466, 0.120765, 0.215545, 0.952306, -0.627223, -1.03203)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D/Weapon"]
+libraries = {
+"": SubResource("AnimationLibrary_5gm5p")
+}
+autoplay = "idle"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=4 format=3 uid="uid://dl8v4snnc0v6p"]
+
+[ext_resource type="Texture2D" uid="uid://btjapj2qj37e4" path="res://Assets/healthpotion.png" id="1_f5iig"]
+[ext_resource type="PackedScene" uid="uid://senlou8cxfo5" path="res://Models/HealthPotion.blend" id="1_mmsdk"]
+[ext_resource type="Script" path="res://Scripts/ItemDataConsumable.cs" id="1_ms3oe"]
+
+[resource]
+script = ExtResource("1_ms3oe")
+HealValue = 20
+StaminaValue = 0
+Name = "Health Potion"
+Description = "Restores Health"
+Stackable = true
+Texture = ExtResource("1_f5iig")
+Model = ExtResource("1_mmsdk")
