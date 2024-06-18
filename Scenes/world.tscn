@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cx5wo6j7me63s"]
+[gd_scene load_steps=19 format=3 uid="uid://cx5wo6j7me63s"]
 
 [ext_resource type="PackedScene" uid="uid://dad3f0abuis23" path="res://Scenes/player.tscn" id="1_184v2"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_nso2f"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c48t2lj1ljsrb" path="res://Scenes/inventory.tscn" id="2_atqfo"]
 [ext_resource type="Script" path="res://Scripts/InventoryInterface.cs" id="4_bgtwu"]
 [ext_resource type="Script" path="res://Scripts/InventoryDataEquip.cs" id="4_r7qdg"]
+[ext_resource type="Script" path="res://Scripts/UI.cs" id="5_f64bn"]
 [ext_resource type="PackedScene" uid="uid://dt746tuqsm8re" path="res://Scenes/slot.tscn" id="6_ratyd"]
 [ext_resource type="PackedScene" uid="uid://c20vhceacguq5" path="res://Scenes/chest.tscn" id="7_h4ao6"]
 [ext_resource type="Resource" uid="uid://tqlxam1nm76i" path="res://Items/apple.tres" id="8_cyhpg"]
@@ -60,6 +61,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("5_f64bn")
 
 [node name="Label" type="Label" parent="UI"]
 layout_mode = 1
@@ -127,8 +129,31 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.611765)
 
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_right = 288.0
+grow_vertical = 0
+step = 1.0
+
+[node name="StaminaBar" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -27.0
+grow_horizontal = 0
+grow_vertical = 0
+step = 1.0
+
 [node name="Chest" parent="." instance=ExtResource("7_h4ao6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.186719, -5.17357)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.528517, -5.17357)
 inventoryData = SubResource("Resource_g0i1j")
 
 [connection signal="DropSlotData" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]

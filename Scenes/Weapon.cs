@@ -3,9 +3,12 @@ using System;
 
 public partial class Weapon : Node3D
 {
-	AnimationPlayer animationPlayer;
+	public AnimationPlayer animationPlayer;
+    CustomSignals customSignals;
+    PlayerStats playerStats;
     Node3D Axe;
     Player player;
+    public bool CanAttack = true;
 
     Vector3 MouseMov;
 
@@ -24,7 +27,9 @@ public partial class Weapon : Node3D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        playerStats = GetNode<PlayerStats>("/root/PlayerStats");
+        customSignals = GetNode<CustomSignals>("/root/CustomSignals");
+        animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         Axe = GetNode<Node3D>("aXE");
         player = GetNode<Player>("/root/World/Player");
         DefaultRotation = Rotation;
@@ -37,12 +42,6 @@ public partial class Weapon : Node3D
         {
             InputEventMouseMotion motion = @event as InputEventMouseMotion;
             MouseMov = new Vector3(-motion.Relative.Y * SwaySens, -motion.Relative.X * SwaySens, 0);
-            GD.Print(MouseMov);
-        }
-
-        if (Input.IsActionPressed("lmb"))
-        {
-            animationPlayer.Play("attack");
         }
     }
 
@@ -58,6 +57,7 @@ public partial class Weapon : Node3D
 
     void WeaponSwayBob(double delta)
     {
+        // sway
         var mouseMovLength = MouseMov.Length();
 
         if (mouseMovLength > SwayThreshold || mouseMovLength < -SwayThreshold)
@@ -67,11 +67,11 @@ public partial class Weapon : Node3D
         else
             Rotation = Rotation.Lerp(DefaultRotation, SwaySpeed * (float)delta);
 
+        // bob
         if (player.IsOnFloor() && player.Velocity.Length() != 0)
         {
             var time = (float)Time.GetTicksMsec();
 
-            //float bobOffset = (float)(StartY + Math.Sin((time * BobSpeed) * BobAmount * player.Velocity.Length()));
             float velocityLength = player.Velocity.Length();
             float angle = time * BobSpeed * velocityLength;
             float bobOffset = (float)Math.Sin(angle) * BobAmount + StartY;

@@ -3,7 +3,7 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-	public const float Speed = 5.0f;
+	public float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 	public float Sensitivity = 1.5f;
 
@@ -11,6 +11,7 @@ public partial class Player : CharacterBody3D
 
 	RayCast3D InteractRay;
 	Camera3D camera;
+	Timer StaminaTimer;
 	PlayerStats playerStats;
 
     [Export] public InventoryData inventoryData;
@@ -23,15 +24,25 @@ public partial class Player : CharacterBody3D
     {
         camera = GetNode<Camera3D>("Camera3D");
         Input.MouseMode = Input.MouseModeEnum.Captured;
+		StaminaTimer = GetNode<Timer>("StaminaTimer");
 		customSignals = GetNode<CustomSignals>("/root/CustomSignals");
 		InteractRay = GetNode<RayCast3D>("Camera3D/InteractRay");
 		playerStats = GetNode<PlayerStats>("/root/PlayerStats");
 		playerStats.Instance.player = this;
+
+		StaminaTimer.Timeout += RestoreStamina;
+		StaminaTimer.Start();
 	}
+
+    public override void _Process(double delta)
+    {
+
+    }
 
     public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
+
 
 		// Add the gravity.
 		if (!IsOnFloor())
@@ -109,4 +120,13 @@ public partial class Player : CharacterBody3D
 		var direction = -camera.GlobalTransform.Basis.Z;
 		return camera.GlobalPosition + direction;
 	}
+
+	public void RestoreStamina()
+	{
+        if (playerStats.Stamina < 100)
+        {
+            playerStats.Stamina += 1;
+        }
+        customSignals.EmitSignal(nameof(customSignals.UpdateStamina));
+    }
 }
