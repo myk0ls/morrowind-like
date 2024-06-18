@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cx5wo6j7me63s"]
+[gd_scene load_steps=21 format=3 uid="uid://cx5wo6j7me63s"]
 
 [ext_resource type="PackedScene" uid="uid://dad3f0abuis23" path="res://Scenes/player.tscn" id="1_184v2"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_nso2f"]
@@ -25,6 +25,12 @@ sky_material = SubResource("ProceduralSkyMaterial_gqoa0")
 [sub_resource type="Environment" id="Environment_l7smo"]
 background_mode = 2
 sky = SubResource("Sky_f23ie")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1mjf7"]
+bg_color = Color(0.886776, 0.227168, 0.154202, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ss4hi"]
+bg_color = Color(0.109777, 0.710867, 0.427566, 1)
 
 [sub_resource type="Resource" id="Resource_78tc8"]
 script = ExtResource("9_l1q7o")
@@ -137,7 +143,9 @@ anchor_bottom = 1.0
 offset_top = -27.0
 offset_right = 288.0
 grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_1mjf7")
 step = 1.0
+allow_greater = true
 
 [node name="StaminaBar" type="ProgressBar" parent="UI"]
 layout_mode = 1
@@ -150,7 +158,9 @@ offset_left = -288.0
 offset_top = -27.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_ss4hi")
 step = 1.0
+allow_greater = true
 
 [node name="Chest" parent="." instance=ExtResource("7_h4ao6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.528517, -5.17357)

@@ -95,6 +95,34 @@ tracks/1/keys = {
 "values": [Vector3(0, -1.12574, 0), Vector3(0, -0.584685, 0.404916), Vector3(0, -0.314159, 0.60912)]
 }
 
+[sub_resource type="Animation" id="Animation_5fj8d"]
+resource_name = "blockExit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("aXE:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.917948, -0.761495, -1.10406), Vector3(0.468, -0.761, -1.219), Vector3(0.238, -0.761, -1.114)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("aXE:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.12574, 0), Vector3(0, -0.584685, 0.404916), Vector3(0, -0.314159, 0.60912)]
+}
+
 [sub_resource type="Animation" id="Animation_kfulj"]
 resource_name = "blockHold"
 length = 0.1
@@ -150,34 +178,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, -1.12574, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5fj8d"]
-resource_name = "blockExit"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("aXE:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.917948, -0.761495, -1.10406), Vector3(0.468, -0.761, -1.219), Vector3(0.238, -0.761, -1.114)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("aXE:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -1.12574, 0), Vector3(0, -0.584685, 0.404916), Vector3(0, -0.314159, 0.60912)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5gm5p"]
