@@ -8,6 +8,7 @@ public partial class Weapon : Node3D
     PlayerStats playerStats;
     Node3D Axe;
     Player player;
+    Area3D area;
     public bool CanAttack = true;
 
     Vector3 MouseMov;
@@ -80,5 +81,14 @@ public partial class Weapon : Node3D
         }
         else
             Position = Position.Lerp(new Vector3(Position.X, (float)StartY, Position.Z), BobSpeed);
+    }
+
+    public void OnArea3DBodyEntered(Node3D node)
+    {
+        if (animationPlayer.CurrentAnimation == "attackFinish")
+        {
+            GD.Print(node.ToString());
+            GD.Print("KURWA");
+        }
     }
 }

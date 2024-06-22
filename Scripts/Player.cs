@@ -11,7 +11,7 @@ public partial class Player : CharacterBody3D
 
 	RayCast3D InteractRay;
 	Camera3D camera;
-	Timer StaminaTimer;
+	public Timer StaminaTimer;
 	PlayerStats playerStats;
 
     [Export] public InventoryData inventoryData;

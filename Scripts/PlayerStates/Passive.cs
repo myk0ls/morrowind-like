@@ -7,6 +7,7 @@ public partial class Passive : State
     Weapon weapon;
     public override void _Ready()
     {
+        base._Ready();
     }
 
     public override void Enter()
@@ -18,7 +19,10 @@ public partial class Passive : State
     
     public override void Update()
     {
-        if (Input.IsActionJustPressed("lmb"))
+        if (Input.IsActionJustPressed("lmb") && 
+            !weapon.animationPlayer.IsPlaying() &&
+            weapon.CanAttack == true &&
+            playerStats.Stamina >= 30)
         {
             DoAttack();
         }

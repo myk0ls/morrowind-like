@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cx5wo6j7me63s"]
+[gd_scene load_steps=20 format=3 uid="uid://cx5wo6j7me63s"]
 
 [ext_resource type="PackedScene" uid="uid://dad3f0abuis23" path="res://Scenes/player.tscn" id="1_184v2"]
 [ext_resource type="Script" path="res://Scripts/World.cs" id="1_nso2f"]
-[ext_resource type="Resource" uid="uid://dynoopnvx4v0j" path="res://Items/test_inv.tres" id="2_338v7"]
 [ext_resource type="PackedScene" uid="uid://c48t2lj1ljsrb" path="res://Scenes/inventory.tscn" id="2_atqfo"]
+[ext_resource type="Script" path="res://Scripts/InventoryDataEquip.cs" id="4_a45kl"]
 [ext_resource type="Script" path="res://Scripts/InventoryInterface.cs" id="4_bgtwu"]
-[ext_resource type="Script" path="res://Scripts/InventoryDataEquip.cs" id="4_r7qdg"]
 [ext_resource type="Script" path="res://Scripts/UI.cs" id="5_f64bn"]
 [ext_resource type="PackedScene" uid="uid://dt746tuqsm8re" path="res://Scenes/slot.tscn" id="6_ratyd"]
 [ext_resource type="PackedScene" uid="uid://c20vhceacguq5" path="res://Scenes/chest.tscn" id="7_h4ao6"]
@@ -13,8 +12,8 @@
 [ext_resource type="Script" path="res://Scripts/SlotData.cs" id="9_l1q7o"]
 [ext_resource type="Script" path="res://Scripts/InventoryData.cs" id="10_y5hbg"]
 
-[sub_resource type="Resource" id="Resource_y4rqs"]
-script = ExtResource("4_r7qdg")
+[sub_resource type="Resource" id="Resource_r5f7a"]
+script = ExtResource("4_a45kl")
 SlotDatas = Array[Object]([null, null, null, null])
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gqoa0"]
@@ -51,8 +50,7 @@ size = Vector3(20.5275, 0.131348, 22.3536)
 
 [node name="Player" parent="." instance=ExtResource("1_184v2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55459, 0)
-inventoryData = ExtResource("2_338v7")
-EquipInventoryData = SubResource("Resource_y4rqs")
+EquipInventoryData = SubResource("Resource_r5f7a")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l7smo")
@@ -166,6 +164,5 @@ allow_greater = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.528517, -5.17357)
 inventoryData = SubResource("Resource_g0i1j")
 
-[connection signal="DropSlotData" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
 [connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
